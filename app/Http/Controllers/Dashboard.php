@@ -45,6 +45,7 @@ class Dashboard extends Controller
         $statisticalProduct = $this->getStatistical('SUM(user_order.count)');
         $statisticalOrder = $this->getStatistical('COUNT(user_order.count)');
 
+
     	return view('admin.dashboard', compact(
     								'totalIncomeMonth', 
     								'totalOrderMonth',
