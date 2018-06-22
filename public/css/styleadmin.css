@@ -1,0 +1,81 @@
+/* Login */
+
+.login{
+	padding-top: 15%;
+
+}
+/* End Login */
+
+/* create product */
+.create-product .img-view{
+    margin-top: 20px;
+    max-height: 250px;
+    max-width: 400px;
+}
+ .create-product .col-sm-6[class!="description"]{
+	height: 40px;
+}
+
+.create-product input{
+}
+/* end create product */
+
+/* list product */
+.list-product table tbody td{
+}
+/* end list product */
+
+/* list bill */
+.list-bill table tbody td{
+}
+/* end list bill */
+.details-bill table tbody td{
+}
+.details-bill .col-sm-6{
+	height: 40px;
+}
+.ibox-content{
+	background: none;
+}
+
+.ui-helper-hidden-accessible{
+	display: none;
+}
+
+#bill-map{
+	width: 100%;
+	height: 600px;
+}
+
+.active{
+	display: block !important ;
+}
+/* .details-bill{
+	display: none;
+} */
+
+.nav-tabs li {
+    height: 40px;
+    padding: 10px;
+   
+    cursor: pointer;
+}
+
+.nav li.active{
+	background: #33333312 !important;
+}
+
+li#info-bill-detail {
+    border-top-left-radius: 6px;
+}
+
+li#map-bill-detail {
+    border-top-right-radius: 6px;
+} 
+
+
+/* degin dashboard */
+.dashboard .ibox-content{
+	background: #ffffff;
+}
+/* end dashboard */
