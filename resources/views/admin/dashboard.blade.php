@@ -13,7 +13,6 @@
                             </div>
                             <div class="ibox-content">
                                 <h1 class="no-margins">{{number_format($totalIncomeMonth) . ' VND'}}</h1>
-                                <div class="stat-percent font-bold text-success">98% <i class="fa fa-bolt"></i></div>
                                 <small>Tổng thu nhập</small>
                             </div>
                         </div>
@@ -28,7 +27,6 @@
                                 <h1 class="no-margins">
                                     {{number_format($totalOrderMonth) .' Đơn'}}
                                 </h1>
-                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
                                 <small>Đơn hàng mới</small>
                             </div>
                         </div>
@@ -40,8 +38,7 @@
                                 <h5>Sản phẩm</h5>
                             </div>
                             <div class="ibox-content">
-                                <h1 class="no-margins">{{$totalOrderToday . ' Chiếc'}}</h1>
-                                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
+                                <h1 class="no-margins">{{$totalProductMonth . ' Chiếc'}}</h1>
                                 <small>Bán được</small>
                             </div>
                         </div>
@@ -64,72 +61,75 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>Orders</h5>
+                                <h5>Thống kê</h5>
                                 <div class="pull-right">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-xs btn-white active">Today</button>
-                                        <button type="button" class="btn btn-xs btn-white">Monthly</button>
-                                        <button type="button" class="btn btn-xs btn-white">Annual</button>
+                                        <button type="button" class="select-date-chart select-month-chart btn btn-xs btn-white active">Tháng</button>
+                                        <button type="button" class="select-date-chart select-year-chart btn btn-xs btn-white">Năm</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="ibox-content">
-                                <div class="row">
-                                <div class="col-lg-9">
-                                    <div >
-                                        {{-- <div class="flot-chart-content" id="flot-dashboard-chart"></div> --}}
-                                     
-                                        <canvas id="barChart" height="100px"></canvas>
-                         
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <ul class="stat-list">
-                                        <li>
-                                            <h2 class="no-margins">1000</h2>
-                                            <small>Total orders in period</small>
-                                            <div class="stat-percent">0% <i class="fa fa-level-up text-navy"></i></div>
-                                            <div class="progress progress-mini">
-                                                <div style="width: 48%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <h2 class="no-margins ">1000</h2>
-                                            <small>Orders in last month</small>
-                                            <div class="stat-percent">0% <i class="fa fa-level-down text-navy"></i></div>
-                                            <div class="progress progress-mini">
-                                                <div style="width: 60%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <h2 class="no-margins ">1000</h2>
-                                            <small>Monthly income from orders</small>
-                                            <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
-                                            <div class="progress progress-mini">
-                                                <div style="width: 22%;" class="progress-bar"></div>
-                                            </div>
-                                        </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                </div>
-
+                            <div >
+                                <canvas id="barChart" class="barChart-date chart-active" height="100px"></canvas>
+                                <canvas id="barChart-product-year" class="barChart-date" height="100px"></canvas>
+                            </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            
+
+
             <script type="text/javascript">
                 var base_url = '{{url('')}}';
+
+                /* statistical by month */
                 var dataProduct =  [];
                 @foreach ($statisticalProduct as $value)
-                dataProduct[{{ $value['monthOrder'] - 1 }}] =  {{ $value['count_order_year'] }} ;
+                dataProduct[{{ $value['label'] - 1 }}] =  {{ $value['count_order_year'] }} ;
                 @endforeach
 
                 var dataOrder =  [];
                 @foreach ($statisticalOrder as $value)
-                dataOrder[{{ $value['monthOrder'] - 1 }}] =  {{ $value['count_order_year'] }} ;
+                dataOrder[{{ $value['label'] - 1 }}] =  {{ $value['count_order_year'] }} ;
                 @endforeach
+
+
+                /*  statistical by Year  */
+                var dataProductYear = [];
+                var labelYear =  [];
+                
+                labelYear[6] = parseInt((new Date()).getFullYear()) ;
+
+                //Assign value in array label chart statistical by Year
+
+                for(var i  = 1; i < 6; i++){
+                    var temp =  6 - i + 1;
+                    labelYear[6 - i] = labelYear[6] - i;
+                    labelYear[6 + i] = labelYear[6] + i;
+                }
+
+                // Assign value in array data product by year
+                 @foreach ($statisticalProductYear as $value)
+                        for(var j  = 0; j < 12; j++){
+                            if({{ $value['label']}} == labelYear[j]){
+                                dataProductYear[j] =   {{ $value['count_order_year'] }};
+                            }
+                        }
+                @endforeach
+
+                //Assign value in array order by year
+                dataOrderYear = [];
+                @foreach ($statisticalOderYear as $value)
+                        for(var j  = 0; j < 12; j++){
+                            if({{ $value['label']}} == labelYear[j]){
+                                dataOrderYear[j] =   {{ $value['count_order_year'] }};
+                            }
+                        }
+                @endforeach
+
             </script>
             <script type="text/javascript" src="{{ url('js/dashboard-admin.js') }}"></script>
 @endsection

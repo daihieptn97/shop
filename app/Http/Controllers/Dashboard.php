@@ -25,15 +25,12 @@ class Dashboard extends Controller
 
     	
 
-        $totalIncomeMonth = $this->getCountOfDate('SUM(user_order.payment)', [ date('Y-m') . '-01' ,date('Y-m') . '-31' ] );
+        $totalIncomeMonth = $this->getCountOfDate('SUM(user_order.payment)', [ Carbon::now()->startOfMonth() ,Carbon::now()->endOfMonth()] );
 
-        $totalOrderMonth = $this->getCountOfDate('COUNT(user_order.id)', [ date('Y-m') . '-01' ,date('Y-m') . '-31' ] );
-
-
-        $totalOrderToday = $this->getCountOfDate('SUM(user_order.count)', [ date('Y-m') . '-01' ,date('Y-m') . '-31' ] );
+        $totalOrderMonth = $this->getCountOfDate('COUNT(user_order.id)', [ Carbon::now()->startOfMonth() ,Carbon::now()->endOfMonth()] );
 
 
-        // $totalOrderToday =  $this->getCountOfDate('COUNT(user_order.count)', [ date('Y-m-d') .' 00-00-00' , date('Y-m-d').' 23-59-59'] );
+        $totalProductMonth = $this->getCountOfDate('SUM(user_order.count)', [ Carbon::now()->startOfMonth() ,Carbon::now()->endOfMonth()] );
 
  
     	$totalPendingBill = Order::select(DB::raw('COUNT(orders.status) AS pending_bill'))
@@ -42,27 +39,50 @@ class Dashboard extends Controller
     						->toArray()[0]['pending_bill'];
 
          
-        $statisticalProduct = $this->getStatistical('SUM(user_order.count)');
-        $statisticalOrder = $this->getStatistical('COUNT(user_order.count)');
+        $statisticalProduct = $this->getStatistical('SUM(user_order.count)', 'MONTH');
+        $statisticalOrder = $this->getStatistical('COUNT(user_order.count)', 'MONTH');
+
+
+        $statisticalProductYear = $this->getStatistical('SUM(user_order.count)', 'YEAR');
+        $statisticalOderYear = $this->getStatistical('COUNT(user_order.count)', 'YEAR');
+
 
     	return view('admin.dashboard', compact(
     								'totalIncomeMonth', 
     								'totalOrderMonth',
     								'totalPendingBill',
-    								'totalOrderToday',
+    								'totalProductMonth',
                                     'statisticalProduct',
-                                    'statisticalOrder'
+                                    'statisticalOrder',
+                                    'statisticalProductYear',
+                                    'statisticalOderYear'
     								)
     				);
     }
 
-    private function getStatistical($patten)
+    private function getStatistical($patten,$dateSelect )
     {
-        $res = UserOrder::select(DB::raw( $patten . ' AS count_order_year, MONTH(orders.updated_at) AS monthOrder'))
+
+        /**
+         * Statistical number product and order help paint chart 
+         * sql  : select SUM(user_order.count) AS count_order_year, MONTH(orders.updated_at) AS monthOrder from `user_order` inner join `orders` on `user_order`.`order_id` = `orders`.`id` where  YEAR(orders.updated_at) = YEAR(now()) AND orders.status = 1  group by YEAR(orders.updated_at), MONTH(orders.updated_at)
+         * @author  name :  Hiep
+         * @param $patten(string) :  string sql (ex : SUM(user_order.count) )
+         * @param $dateSelect (String) :  what is the group by ? i'm use YEAR or MONTH   
+         * @return Array value include : time of statistical and quantity 
+        **/
+
+        $grBy = ', MONTH(orders.updated_at)';
+        $wBy = 'YEAR(orders.updated_at) = YEAR(now())  AND'; 
+        if($dateSelect == 'YEAR'){
+            $grBy =  '';
+            $wBy = '';
+        }
+
+        $res = UserOrder::select(DB::raw( $patten . ' AS count_order_year, '. $dateSelect .'(orders.updated_at) AS label'))
         ->join('orders', 'user_order.order_id' ,'=', 'orders.id')
-        ->whereRaw((' YEAR(orders.updated_at) = YEAR(now()) AND orders.status = 1 ' ))
-        // ->where(['orders.status' => 1 ,'YEAR(orders.updated_at)' =>  'YEAR(now())'])
-        ->groupBy(DB::raw('YEAR(orders.updated_at), MONTH(orders.updated_at)'))
+        ->whereRaw( $wBy .' orders.status = 1 ')
+        ->groupBy(DB::raw('YEAR(orders.updated_at)' . $grBy ))
         ->get()
         ->toArray();
 
@@ -73,6 +93,7 @@ class Dashboard extends Controller
     {
         /**
          * get get total bill in time
+         * sql example : select COUNT(user_order.payment) AS res from `user_order` join `orders` on `user_order`.`order_id` = `orders`.`id` where `user_order`.`updated_at` between '2018-06-01 00-00-00' AND '2018-06-31 00-00-00' and `orders`.`status` = 1 AND YEAR(orders.updated_at) = YEAR(now())
          * @author  name :  Hiep
          * @param  $patten (string)  : SUM, COUNT, .. . 
          * @param  $time (array)  : $time time start and time end  
@@ -80,40 +101,13 @@ class Dashboard extends Controller
          * @return $value (interger) : number
         **/
 
-        // select COUNT(user_order.payment) AS res from `user_order` join `orders` on `user_order`.`order_id` = `orders`.`id` where `user_order`.`updated_at` between '2018-06-01 00-00-00' AND '2018-06-31 00-00-00' and `orders`.`status` = 1 AND YEAR(orders.updated_at) = YEAR(now())
         $value =  UserOrder::select(DB::raw($patten . 'AS res'))
                         ->join('orders', 'user_order.order_id' ,'=', 'orders.id')
                         ->whereBetween('user_order.updated_at', $time)
-                        ->where('orders.statuss', '=', '1')
+                        ->where('orders.status', '=', '1')
                         ->get()
                         ->toArray()[0]['res'];
         return $value;
     }
 
-    private function percentageCalculation($now, $old)
-    {
-        // (thang nay - thang truoc) / thang truoc * 100
-        /**
-         * percentage Calculation recipe  : (($now - $old) / $old ) * 100;
-         * @author  name :  Hiep
-         * @param  $now (int)  : number month now
-         * @param  $old (int)  : number month old
-         * @return $percentage (interger) : percentage Calculation 
-        **/
-
-        $percentage = (($now - $old) / $old ) * 100;
-        return $percentage;
-    }
-
-    // public function getStatistical()
-    // {
-       
-    //     $res = UserOrder::select(DB::raw('SUM(user_order.count) AS count_order_year, MONTH(orders.updated_at) AS monthOrder'))
-    //     ->join('orders', 'user_order.order_id' ,'=', 'orders.id')
-    //     ->whereRaw((' YEAR(orders.updated_at) = YEAR(now()) AND orders.status = 1 ' ))
-    //     // ->where(['orders.status' => 1 ,'YEAR(orders.updated_at)' =>  'YEAR(now())'])
-    //     ->groupBy(DB::raw('YEAR(orders.updated_at), MONTH(orders.updated_at)'))
-    //     ->get()
-    //     ->toArray();
-    // }
 }

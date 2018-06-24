@@ -75,7 +75,19 @@ li#map-bill-detail {
 
 
 /* degin dashboard */
+
+/* hiep */
 .dashboard .ibox-content{
 	background: #ffffff;
 }
+
+.barChart-date{
+	display: none !important;
+}
+
+.chart-active{
+	display: block !important;
+}
+
+
 /* end dashboard */
