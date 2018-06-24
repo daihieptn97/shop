@@ -47,6 +47,7 @@ class Dashboard extends Controller
         $statisticalOderYear = $this->getStatistical('COUNT(user_order.count)', 'YEAR');
 
 
+
     	return view('admin.dashboard', compact(
     								'totalIncomeMonth', 
     								'totalOrderMonth',
