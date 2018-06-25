@@ -18,14 +18,14 @@
    
 </head>
 <body>
-	<div id="wrapper">
+    <div id="wrapper">
         <?php echo $__env->make('main.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <div id="page-wrapper" class="gray-bg">
             <?php echo $__env->make('main.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             <?php echo $__env->yieldContent('content'); ?>
             <?php echo $__env->make('main.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         </div>
-	</div>
+    </div>
 <!-- Mainly scripts -->
     <script src="<?php echo e(URL::asset('js/bootstrap.min.js')); ?>"></script>
     <script src="<?php echo e(URL::asset('js/plugins/metisMenu/jquery.metisMenu.js')); ?>"></script>

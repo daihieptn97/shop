@@ -35,14 +35,14 @@
                                 <tbody>
                                 <?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td class="align-middle text-center" style="width: 35px;height: auto"><?php echo e($stt++); ?></td>
+                                        <td class="align-middle text-center"><?php echo e($stt++); ?></td>
                                         <td><?php echo e($element->shop->shop_name); ?></td>
                                         <td><?php echo e($element->name); ?></td>
                                         <td><?php echo e($element->category->name); ?></td>
-                                        <td class="text-center" style="width: 100px;height: auto"><?php echo e($element->count); ?></td>
-                                        <td class="text-center" style="width: 200px;height: auto"><?php echo e($element->price." ".$element->unit); ?></td>
+                                        <td class="text-center"><?php echo e($element->count); ?></td>
+                                        <td class="text-center"><?php echo e($element->price." ".$element->unit); ?></td>
                                         <td class="text-center"><img src="<?php echo e(asset($element->image)); ?>" style="width: 65px;height: auto" alt=""></td>
-                                        <td class="text-center" style="width: 200px">
+                                        <td class="text-center item-button">
                                             <a href="<?php echo e(url('user/product/'.$element->id)); ?>"><button class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             <a href="<?php echo e(url('admin/product/'.$element->id.'/edit')); ?>"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             <form action="<?php echo e(url('admin/product/'.$element->id )); ?>" method="POST" style="display: inline">

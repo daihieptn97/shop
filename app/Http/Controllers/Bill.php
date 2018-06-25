@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
-
-
 class Bill extends Controller
 {
     /**
@@ -48,7 +46,6 @@ class Bill extends Controller
      */
     public function show($id)
     {
-
         $origin_bill = App\Order::find($id)->UserOrder[0]->Product->shop->address;
         $detail = App\Order::find($id);
         

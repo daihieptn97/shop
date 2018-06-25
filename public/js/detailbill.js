@@ -30,20 +30,25 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 }
 
 
-$('#map-bill-detail').click(function(event) {
-    $(this).addClass('active');
-    $('#bill-map').addClass('active');
 
+$('.nav-bill-detail').click(function () {
+  $('.active').removeClass('active');
+  $(this).addClass('active');
 
-    $('#bill-info').removeClass('active');
-    $('#info-bill-detail').removeClass('active');
+  activeTabDetail();
+  
 });
 
-
-$('#info-bill-detail').click(function(event) {
-    $(this).addClass('active');
-    $('#bill-info').addClass('active');
-
-    $('#bill-map').removeClass('active');
-    $('#map-bill-detail').removeClass('active');
-});
+function  activeTabDetail() {
+  var arr = document.getElementsByClassName('details-bill');
+  for (var i = 0; i < arr.length; i++) {
+     if(arr[i].className.indexOf('bill-active') < 0 ){
+               if(arr[i].className  == 'bill-map animated bounce details-bill'){
+                  initMap();
+                }
+                arr[i].classList.add("bill-active");
+            }else{
+                arr[i].classList.remove("bill-active");
+            }
+  }
+}

@@ -90,3 +90,11 @@ img.pull-left{
     border-bottom: 1px solid #8080809c;
     padding-bottom: 15px;
 }
+
+.table-cart thead th{
+    line-height: 1;
+}
+
+.table-cart theade .product-quantity{
+  width: 100px;
+}

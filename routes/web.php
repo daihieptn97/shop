@@ -10,7 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use Carbon\Carbon;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,8 +34,7 @@ Route::group(['prefix'=>'admin','as'=>'admin.', 'middleware' => ['auth']], funct
 	Route::resource('bill','Bill');
 	Route::get('profile','User@profile')->name('profile');
 	Route::resource('product', 'Product');
-    Route::resource('shop', 'Shop');
-	
+	Route::resource('shop', 'Shop');
 });
 
 Route::group(['prefix' => 'user'], function() {
@@ -47,19 +45,5 @@ Route::group(['prefix' => 'user'], function() {
     Route::get('product/{id?}', 'User\Products@index');
     Route::resource('cart', 'User\Cart');
     Route::get('getDistance/{origin}/{destination}', 'User\Cart@getDistance');
-});
-
-Route::get('statistical', function(){
-    // $carbon = Carbon::today(); 
-    echo Carbon::now()->startOfMonth();
-   
-
-    echo '<br>';
- echo Carbon::now()->endOfMonth();
-    // $yesterday = Carbon::yesterday();
-    // echo $yesterday;
-    // echo '<pre>';
-    // var_dump($carbon);
-    // echo '<hr>';
-    // echo '</pre>';
+    Route::get('order/{id}','User\Cart@order');
 });

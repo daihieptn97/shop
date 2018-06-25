@@ -43,38 +43,45 @@ class Cart extends Controller
         //
         $request = $request->value;
         $product_id = $request[0]['productID'];
+        $count = $request[0]['numberProduct'];
+        
+        $product = Product::find($product_id);
+        $price = $product->price;
+        $total_temp = $price * $count;
+        $shipping = $request[0]['shipping'];
+        $total_price = $total_temp + $shipping;
+        
+        $count_cur = $product->count;
+        if($count_cur - $count >= 0){
+            $product->count = $count_cur - $count;
+        }
+        else{
+            die("false");
+        }
 
         $o = new Order();
-        $o->payment = $request[0]['totalPrice'];
+        $o->payment = $total_price;
+        $o->phonenumber = $request[0]['number'];
         $o->fullname = $request[0]['name'];
         $o->address = $request[0]['address'];
-        $o->phonenumber = $request[0]['number'];
         $o->email = $request[0]['email'];
-        $o->shipping = $request[0]['shipping'];
+        $o->shipping = $shipping;
         $o->status = 0;
-
         $o->save();
         
-
-
         $idOderNew = $o->id;
-       
         $userOder =  new UserOrder();
         $userOder->order_id = $idOderNew;
         $userOder->product_id = $request[0]['productID'];
-        $userOder->count = $request[0]['numberProduct'];
-        $userOder->payment = $request[0]['totalPrice'];
+        $userOder->count = $count;
+        $userOder->payment = $total_temp;
         $userOder->save();
 
-        $product = Product::find($product_id);
-        $count = (int)$product->count;
-        if($count > 0){
-            $product->count = $count-1;
-            $product->save();
-            echo 'true';
+        if($product->save()){
+            echo $idOderNew;
         }
         else{
-            echo false;
+            echo 'false';
         }
     }
 
@@ -140,5 +147,12 @@ class Cart extends Controller
         curl_close($ch);
         $response_a = json_decode($response);
         echo $response_a->rows[0]->elements[0]->distance->text;
+    }
+
+    public function order($id)
+    {
+        $order = Order::find($id);
+        $result = array("order" => $order);
+        return view('user.page.order', $result);
     }
 }

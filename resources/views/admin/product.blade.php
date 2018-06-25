@@ -36,14 +36,14 @@
                                 <tbody>
                                 @foreach ($data as $element)
                                     <tr>
-                                        <td class="align-middle text-center" style="width: 35px;height: auto">{{$stt++}}</td>
+                                        <td class="align-middle text-center">{{$stt++}}</td>
                                         <td>{{$element->shop->shop_name}}</td>
                                         <td>{{$element->name}}</td>
                                         <td>{{$element->category->name}}</td>
-                                        <td class="text-center" style="width: 100px;height: auto">{{$element->count}}</td>
-                                        <td class="text-center" style="width: 200px;height: auto">{{$element->price." ".$element->unit}}</td>
+                                        <td class="text-center">{{$element->count}}</td>
+                                        <td class="text-center">{{$element->price." ".$element->unit}}</td>
                                         <td class="text-center"><img src="{{ asset($element->image) }}" style="width: 65px;height: auto" alt=""></td>
-                                        <td class="text-center" style="width: 200px">
+                                        <td class="text-center item-button">
                                             <a href="{{ url('user/product/'.$element->id) }}"><button class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             <a href="{{ url('admin/product/'.$element->id.'/edit') }}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             <form action="{{ url('admin/product/'.$element->id ) }}" method="POST" style="display: inline">

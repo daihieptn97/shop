@@ -22,16 +22,16 @@
     </div>
     
     <ul class="nav nav-tabs">
-      <li id="info-bill-detail" class="active">
+      <li id="info-bill-detail" class="nav-bill-detail active">
         <h4>Thông tin đơn hàng</h4>
         
       </li>
-      <li id="map-bill-detail" >
+      <li id="map-bill-detail" class="nav-bill-detail" >
         <h4>Bản đồ</h4>
       </li>
          </ul>
-      <div id="bill-map" class="details-bill"></div>
-      <div id="bill-info" class="wrapper wrapper-content animated fadeInRight details-bill active">
+      <div id="bill-map" class="bill-map animated bounce details-bill"></div>
+      <div id="bill-info" class="wrapper wrapper-content animated bounce details-bill bill-active">
                 <div class="row">
                     <div class="col-lg-12">
                     <div class="ibox float-e-margins">
@@ -144,8 +144,9 @@
         var origin_bill = "{{$origin_bill . ',vn'}}";
         var destination_bill = "{{$detail->address . ',vn'}}";
     </script>
+     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADgkQR85kcPkyDpOhUyISKRjfSDDaGVu8&callback=initMap"
+  type="text/javascript"></script>
     <script type="text/javascript" src="{{ url('js/detailbill.js') }}"></script>
-      <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA7xXAxlsvz_M_WHauc9koBZrKLz70fJoE&callback=initMap">
-    </script>
+
+   
 @endsection

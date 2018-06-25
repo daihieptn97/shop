@@ -1,8 +1,6 @@
 /* Login */
-
 .login{
 	padding-top: 15%;
-
 }
 /* End Login */
 
@@ -12,10 +10,9 @@
     max-height: 250px;
     max-width: 400px;
 }
- .create-product .col-sm-6[class!="description"]{
+.create-product .col-sm-6[class!="description"]{
 	height: 40px;
 }
-
 .create-product input{
 }
 /* end create product */
@@ -29,6 +26,8 @@
 .list-bill table tbody td{
 }
 /* end list bill */
+
+/* detail bill */
 .details-bill table tbody td{
 }
 .details-bill .col-sm-6{
@@ -37,19 +36,34 @@
 .ibox-content{
 	background: none;
 }
+.details-bill{
+	display: none;
+}
+
+.bill-active{
+	display: block !important ;
+}
+/* end detail bill */
 
 .ui-helper-hidden-accessible{
 	display: none;
 }
+.note-editing-area{
+	min-height: 300px;
+}
+
+/* list shop */
+.list-shop .item-button{
+	max-width: 100px;
+}
+/* end list shop */
 
 #bill-map{
 	width: 100%;
 	height: 600px;
 }
 
-.active{
-	display: block !important ;
-}
+
 /* .details-bill{
 	display: none;
 } */

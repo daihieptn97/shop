@@ -2,7 +2,7 @@
     Danh sách cửa hàng
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-    <div class="wrapper wrapper-content animated fadeInRight list-product">
+    <div class="wrapper wrapper-content animated fadeInRight list-shop">
             <div class="row">
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -40,7 +40,7 @@
                                         <td><?php echo e($element->phone); ?></td>
                                         <td class="text-center"><?php echo e($element->email); ?></td>
                                         <td class="text-center"><?php echo e($element->created_at); ?></td>
-                                        <td class="text-center" style="width: 200px">
+                                        <td class="text-center item-button">
                                             <a href=""><button class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             <a href="<?php echo e(url('admin/shop/'.$element->id.'/edit')); ?>"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             <form action="<?php echo e(url('admin/shop/'.$element->id )); ?>" method="POST" style="display: inline">

@@ -1,3 +1,6 @@
+ <?php
+     $user = Auth::user()->toArray();
+ ?>
     <nav class="navbar-default navbar-static-side" role="navigation">
         <div class="sidebar-collapse">
             <ul class="nav metismenu" id="side-menu">
@@ -6,12 +9,12 @@
                             <img alt="image" class="img-circle" src="<?php echo e(URL::asset('img/profile_small.jpg')); ?>" />
                              </span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">David Williams</strong>
-                             </span> <span class="text-muted text-xs block">Art Director <b class="caret"></b></span> </span> </a>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"></strong>
+                             </span> <span class="text-muted text-xs block"><?php echo e($user['name']); ?><b class="caret"></b></span> </span> </a>
                         <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li><a href="<?php echo e(url('admin/profile')); ?>">Profile</a></li>
+                            <li><a href="<?php echo e(url('admin/profile')); ?>">Trang cá nhân</a></li>
                             <li class="divider"></li>
-                            <li><a href="<?php echo e(url('logout')); ?>">Logout</a></li>
+                            <li><a href="<?php echo e(url('logout')); ?>">Đăng xuất</a></li>
                         </ul>
                     </div>
                     <div class="logo-element">

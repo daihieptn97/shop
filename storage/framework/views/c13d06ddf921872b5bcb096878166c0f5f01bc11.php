@@ -40,28 +40,28 @@
                             <div class="col-sm-10"><input type="text" class="form-control" name="address" readonly value="<?php echo e($bill->address); ?>" required></div>
                         </div>
                         <div class="form-group col-sm-6">
-                            <label class="col-lg-2 control-label">Số điện thoại</label>
-                            <div class="col-lg-10"><input type="text" class="form-control" name="phonenumber" readonly value="<?php echo e($bill->phonenumber); ?>" required></div>
+                            <label class="col-sm-2 control-label">Số điện thoại</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="phonenumber" readonly value="<?php echo e($bill->phonenumber); ?>" required></div>
                         </div>
                        <div class="form-group col-sm-6">
-                            <label class="col-lg-2 control-label">Email</label>
-                            <div class="col-lg-10"><input type="text" class="form-control" name="email" readonly value="<?php echo e($bill->email); ?>" required></div>
+                            <label class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10"><input type="text" class="form-control" name="email" readonly value="<?php echo e($bill->email); ?>" required></div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label class="col-lg-2 control-label">Ngày mua</label>
-                            <div class="col-lg-10"><input type="text" class="form-control" name="text" readonly value="<?php echo e($bill->created_at); ?>" required></div>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-4 control-label">Tổng tiền</label>
+                            <div class="col-sm-8"><input type="number" class="form-control" name="date" readonly value="<?php echo e($bill->payment+$bill->shipping); ?>" required></div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label class="col-lg-2 control-label">Tổng tiền</label>
-                            <div class="col-lg-10"><input type="number" class="form-control" name="date" readonly value="<?php echo e($bill->payment); ?>" required></div>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-4 control-label">Phí ship</label>
+                            <div class="col-sm-8"><input type="number" class="form-control" name="date" readonly value="<?php echo e($bill->shipping); ?>" required></div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label class="col-lg-2 control-label">Phí ship</label>
-                            <div class="col-lg-10"><input type="number" class="form-control" name="date" readonly value="<?php echo e($bill->shipping); ?>" required></div>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-6 control-label">Ngày mua</label>
+                            <div class="col-sm-6"><input type="text" class="form-control" name="text" readonly value="<?php echo e($bill->created_at); ?>" required></div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label class="col-sm-2 control-label">Trạng thái</label>
-                            <div class="col-sm-10">
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-4 control-label">Trạng thái</label>
+                            <div class="col-sm-8">
                                 <select class="form-control m-b" name="status">
                                         <option value="1" <?php if($bill->status == 1): ?>
                                             selected
@@ -98,8 +98,8 @@
                             </tbody>
                         </table>
                         <div class="form-group col-sm-12">
-                            <div class="col-sm-4 col-sm-offset-5">
-                                <button class="btn btn-warning" type="submit">Sửa sản phẩm</button>
+                            <div class="col-sm-4 col-sm-offset-6">
+                                <button class="btn btn-warning" type="submit">Sửa hóa đơn</button>
                                 <button class="btn btn-white" type="submit">Hủy</button>
                             </div>
                         </div>

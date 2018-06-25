@@ -4,6 +4,7 @@ function initialize() {
 }
 
 $(document).ready(function(){
+
 	$("#confirm-address").on('click', function() {
 		var addr = $("#address").val();
 		var add_shop = $("#address-shop").val();
@@ -12,15 +13,43 @@ $(document).ready(function(){
 	        type : "get",
 	        dataType:"text",
 	        success : function (result){
-	        	var lastindex = result.indexOf(" km");
-	        	var km = result.substring(0, lastindex);
-	        	km = km.replace(',','');
-	        	var ship = Math.ceil(km*200);
-	        	var pay_temp = parseInt($("#payment-temp").text());
-	        	$("#shipping").val(ship);
-	        	$("#view-ship").html(ship);
-	        	$("#payment").html(ship+pay_temp);
-	        	$("#payment").html(ship+pay_temp);
+	        	$.getJSON(base_url+"/js/config.json", function(data) {    
+					var lastindex = result.indexOf(" km");
+		        	var km = result.substring(0, lastindex);
+		        	km = km.replace(',','');
+		        	
+		        	console.log(km);
+		        	var total_km = km;
+		        	var ship = 0;
+		        	data.forEach(function(element,index) {
+		        		console.log(ship+"|"+total_km);
+		        		if(total_km > 0){
+	        				if(total_km - element.km >= 0){
+			        			if(element.km == ""){
+			        				ship += total_km * element.price;
+			        				total_km = 0;
+				        		}
+				        		else{
+				        			ship += element.km * element.price;
+				        			total_km -= element.km;
+				        		}
+						  	}
+						  	else{
+						  		ship += total_km * element.price;
+						  		total_km = 0;
+						  	}
+					  	}
+					});
+
+		        	ship = Math.ceil(ship);
+		        	console.log(ship);
+
+		        	var pay_temp = parseInt($("#payment-temp").text());
+		        	$("#shipping").val(ship);
+		        	$("#view-ship").html(ship);
+		        	$("#payment").html(ship+pay_temp);
+		        	$("#payment").html(ship+pay_temp);
+				});
 	        }
 	    });
 	});
@@ -51,19 +80,15 @@ $(document).ready(function(){
 						value: datas 
 					},
 				success : function (result){
-                	if (result == 'true') {
+					console.log(result);
+                	if (result != "false") {
                 		alert("Đặt hàng thành công");
-                		window.location =   base_url + '/user/ListProduct';
+                		window.location = base_url + '/user/order/'+result;
                 	}else {
                 		alert("Đặt hàng chưa thành công");
                 	}
-
-
                 }
-			})
-			
-			
-
+			});
 		} else alert('Yêu cầu nhập đủ các ô dữ liệu để đảm bảo lợi ích cho bạn');
 	});
 	var sum  =  1 *  parseInt(document.getElementById('productprice').textContent);

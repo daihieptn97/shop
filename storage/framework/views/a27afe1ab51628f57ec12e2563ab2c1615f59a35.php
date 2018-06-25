@@ -5,19 +5,8 @@
 <?php $__env->startSection('content'); ?>
     <div class="row wrapper border-bottom white-bg page-heading">
         <div class="col-lg-10">
-            <h2>Static Tables</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">Home</a>
-                </li>
-                <li>
-                    <a>Tables</a>
-                </li>
-                <li class="active">
-                    <strong>Static Tables</strong>
-                </li>
-            </ol>
-        </div>
+            <h2>Chi tiết hóa đơn</h2>
+            </div>
     </div>
         <div class="wrapper wrapper-content animated fadeInRight details-bill">
             <div class="row">
@@ -60,24 +49,24 @@
                             <label class="col-sm-2 control-label">Email</label>
                             <div class="col-sm-10"><input type="text" class="form-control"  readonly name="email" value="<?php echo e($detail->email); ?>" required></div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label class="col-sm-2 control-label">Ngày mua</label>
-                            <div class="col-sm-10"><input type="text" class="form-control"  readonly name="date" value="<?php echo e($detail->created_at); ?>" required></div>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-4 control-label">Tổng tiền</label>
+                            <div class="col-sm-8"><input type="text" class="form-control" readonly  name="payment" value="<?php echo e($detail->payment+$detail->shipping); ?>" required></div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label class="col-sm-2 control-label">Tổng tiền</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" readonly  name="payment" value="<?php echo e($detail->payment); ?>" required></div>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-4 control-label">Phí ship</label>
+                            <div class="col-sm-8"><input type="text" class="form-control" readonly  name="date" value="<?php echo e($detail->shipping); ?>" required></div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label class="col-sm-2 control-label">Phí ship</label>
-                            <div class="col-sm-10"><input type="text" class="form-control" readonly  name="date" value="<?php echo e($detail->shipping); ?>" required></div>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-4 control-label">Ngày mua</label>
+                            <div class="col-sm-8"><input type="text" class="form-control"  readonly name="date" value="<?php echo e($detail->created_at); ?>" required></div>
                         </div>
-                        <div class="form-group col-sm-6">
-                            <label class="col-sm-2 control-label">Trạng thái</label>
+                        <div class="form-group col-sm-3">
+                            <label class="col-sm-4 control-label">Trạng thái</label>
                             <?php if($detail->status == 1): ?>
-                                <div class="col-sm-10"><input type="text" class="form-control" readonly  name="status" value="Đã thanh toán" required></div>
+                                <div class="col-sm-8"><input type="text" class="form-control" readonly  name="status" value="Đã thanh toán" required></div>
                             <?php else: ?>
-                                <div class="col-sm-10"><input type="text" class="form-control" readonly  name="status" value="Chưa thanh toán" required></div>
+                                <div class="col-sm-8"><input type="text" class="form-control" readonly  name="status" value="Chưa thanh toán" required></div>
                             <?php endif; ?>
                         </div>
                         <table class="table">

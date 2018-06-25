@@ -19,11 +19,11 @@ class Dashboard extends Controller
          * @author  name :  Hiep
          * @return Array ['totalIncomeMonth', 'totalOrderMonth','totalPendingBill', 'totalOrderToday']
         **/
-    	$currenYear  = date('Y'); 
-    	$currenMoth  = date('m'); 
-    	$currenDay  = date('d');
+        $currenYear  = date('Y'); 
+        $currenMoth  = date('m'); 
+        $currenDay  = date('d');
 
-    	
+        
 
         $totalIncomeMonth = $this->getCountOfDate('SUM(user_order.payment)', [ Carbon::now()->startOfMonth() ,Carbon::now()->endOfMonth()] );
 
@@ -33,10 +33,10 @@ class Dashboard extends Controller
         $totalProductMonth = $this->getCountOfDate('SUM(user_order.count)', [ Carbon::now()->startOfMonth() ,Carbon::now()->endOfMonth()] );
 
  
-    	$totalPendingBill = Order::select(DB::raw('COUNT(orders.status) AS pending_bill'))
-    						->where('orders.status', '=', '0')
-    						->get()
-    						->toArray()[0]['pending_bill'];
+        $totalPendingBill = Order::select(DB::raw('COUNT(orders.status) AS pending_bill'))
+                            ->where('orders.status', '=', '0')
+                            ->get()
+                            ->toArray()[0]['pending_bill'];
 
          
         $statisticalProduct = $this->getStatistical('SUM(user_order.count)', 'MONTH');
@@ -48,17 +48,17 @@ class Dashboard extends Controller
 
 
 
-    	return view('admin.dashboard', compact(
-    								'totalIncomeMonth', 
-    								'totalOrderMonth',
-    								'totalPendingBill',
-    								'totalProductMonth',
+        return view('admin.dashboard', compact(
+                                    'totalIncomeMonth', 
+                                    'totalOrderMonth',
+                                    'totalPendingBill',
+                                    'totalProductMonth',
                                     'statisticalProduct',
                                     'statisticalOrder',
                                     'statisticalProductYear',
                                     'statisticalOderYear'
-    								)
-    				);
+                                    )
+                    );
     }
 
     private function getStatistical($patten,$dateSelect )

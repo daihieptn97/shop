@@ -18,14 +18,14 @@
    
 </head>
 <body>
-	<div id="wrapper">
+    <div id="wrapper">
         @include('main.sidebar')
         <div id="page-wrapper" class="gray-bg">
             @include('main.header')
             @yield('content')
             @include('main.footer')
         </div>
-	</div>
+    </div>
 <!-- Mainly scripts -->
     <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>

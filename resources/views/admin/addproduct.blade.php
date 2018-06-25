@@ -42,8 +42,12 @@
                                 </div>
                             </div>
                             <div class="form-group col-sm-12">
-                                <label class="col-sm-2 control-label">Loại sản phẩm</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-2 control-label">Tên sản phẩm</label>
+                                <div class="col-sm-10"><input type="text" class="form-control" name="name" required></div>
+                            </div>
+                            <div class="form-group col-sm-8">
+                                <label class="col-sm-3 control-label">Loại sản phẩm</label>
+                                <div class="col-sm-9">
                                     <select class="form-control m-b" name="cate_id">
                                         @foreach ($category as $element)
                                             <option value="{{$element->id}}">{{$element->name}}</option>
@@ -51,23 +55,18 @@
                                     </select>
                                 </div>
                             </div>
-
-                            <div class="form-group col-sm-12">
-                                <label class="col-sm-2 control-label">Tên sản phẩm</label>
-                                <div class="col-sm-10"><input type="text" class="form-control" name="name" required></div>
-                            </div>
-                            <div class="form-group col-sm-12">
-                                <label class="col-sm-2 control-label">Số lượng</label>
-                                <div class="col-sm-10"><input type="number" class="form-control" name="count" required></div>
+                            <div class="form-group col-sm-4">
+                                <label class="col-sm-4 control-label">Số lượng</label>
+                                <div class="col-sm-8"><input type="number" class="form-control" name="count" required></div>
                             </div>
 
-                            <div class="form-group col-sm-12">
-                                <label class="col-lg-2 control-label">Giá tiền</label>
-                                <div class="col-lg-10"><input type="number" class="form-control" name="price" required></div>
+                            <div class="form-group col-sm-8">
+                                <label class="col-lg-3 control-label">Giá tiền</label>
+                                <div class="col-lg-9"><input type="number" class="form-control" name="price" required></div>
                             </div>
-                            <div class="form-group col-sm-12">
-                                <label class="col-lg-2 control-label">Loại tiền</label>
-                                <div class="col-lg-10">
+                            <div class="form-group col-sm-4">
+                                <label class="col-lg-4 control-label">Loại tiền</label>
+                                <div class="col-lg-8">
                                     <select class="form-control m-b" name="unit">
                                         <option value="VND">VND</option>
                                         <option value="$">$</option>
@@ -84,8 +83,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group col-sm-12">
-                                <label class="col-sm-2 control-label">Mô tả sản phẩm</label>
-                                <div class="col-sm-10">
+                                <label class="col-sm-1 control-label">Mô tả sản phẩm</label>
+                                <div class="col-sm-11">
                                     <div class="ibox float-e-margins">
                                         <div class="ibox-content no-padding">
                                             <textarea id="summernote" name="description">

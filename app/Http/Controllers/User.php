@@ -15,7 +15,8 @@ class User extends Controller
      */
     public function index()
     {
-        $result = array("user" => App\Order::all());
+        $order = App\Order::groupBy('phonenumber')->get();
+        $result = array("user" => $order);
         return view('admin.user', $result);
     }
 

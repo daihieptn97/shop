@@ -3,7 +3,7 @@
     Danh sách cửa hàng
 @endsection
 @section('content')
-    <div class="wrapper wrapper-content animated fadeInRight list-product">
+    <div class="wrapper wrapper-content animated fadeInRight list-shop">
             <div class="row">
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -41,7 +41,7 @@
                                         <td>{{$element->phone}}</td>
                                         <td class="text-center">{{$element->email}}</td>
                                         <td class="text-center">{{$element->created_at}}</td>
-                                        <td class="text-center" style="width: 200px">
+                                        <td class="text-center item-button">
                                             <a href=""><button class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></button></a>
                                             <a href="{{ url('admin/shop/'.$element->id.'/edit') }}"><button class="btn btn-warning"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></a>
                                             <form action="{{ url('admin/shop/'.$element->id ) }}" method="POST" style="display: inline">
